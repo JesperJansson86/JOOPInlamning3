@@ -1,5 +1,8 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,12 +14,15 @@ public class GUI extends JFrame {
     private JPanel tileGrid = new JPanel();
     private JButton buttonNewGame = new JButton("New Game");
     private List<JButton> buttons = new ArrayList<>();
-    private List<Image> icons = new ArrayList<Image>();
+    private List<ImageIcon> icons = new ArrayList<>();
+    private List<Image> iconImages = new ArrayList<>();
     private Game game = new Game();
+    private Color blue = new Color(104,147,196);
 
 
 
     public GUI(){
+        addLogo();
 
         setLayout(new FlowLayout());
         add(pMain);
@@ -27,21 +33,21 @@ public class GUI extends JFrame {
 
         pMain.add(pCenter, BorderLayout.CENTER);
         pCenter.setLayout(new GridLayout(4,4));
-        pCenter.setBackground(Color.RED);
+//        pCenter.setBackground(Color.RED);
 
+//        startNewGame();
         assignButtons();
-        //startNewGame();
 
         pMain.add(pSouth, BorderLayout.SOUTH);
         pSouth.add(buttonNewGame);
         buttonNewGame.setPreferredSize(new Dimension(320,20));
-        //buttonNewGame.addActionListener(l -> startNewGame());
+        buttonNewGame.addActionListener(l -> startNewGame());
 
         setTitle("15 Game");
         setVisible(true);
         setLocationRelativeTo(null);
         pack();
-        setMinimumSize(this.getSize());
+        setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
@@ -59,7 +65,7 @@ public class GUI extends JFrame {
                         button.setVisible(false);
                     }
                     else{
-                        button.setBackground(Color.GREEN);
+                        button.setBackground(blue);
                     }
                     pCenter.add(button);
                 }
@@ -74,11 +80,24 @@ public class GUI extends JFrame {
         assignButtons();
     }
 
-    public void startNewGame(){
-        game.startNewGame();
+    public void addLogo(){
+        try {
+            iconImages.add(new ImageIcon(ImageIO.read(new File("img/logo16.png"))).getImage());
+            iconImages.add(new ImageIcon(ImageIO.read(new File("img/logo32.png"))).getImage());
+            iconImages.add(new ImageIcon(ImageIO.read(new File("img/logo64.png"))).getImage());
+            iconImages.add(new ImageIcon(ImageIO.read(new File("img/logo128.png"))).getImage());
+        } catch (IOException e){
+            e.getStackTrace();
+        }
+        setIconImages(iconImages);
     }
 
-    public static void main(String[] args) {
+    public void startNewGame(){
+        game.startNewGame();
+        assignButtons();
+    }
+
+    public static void main(String[] args){
         GUI gui = new GUI();
     }
 }
