@@ -23,6 +23,10 @@ public class Game {
         moveTile2(13,4);
         moveTile2(9,4);
         moveTile2(10,4);
+        moveTile2(10,4);
+        moveTile2(9,4);
+        moveTile2(13,4);
+
 
         tiles[0].position.setFree(true);
         printMe();
@@ -66,12 +70,16 @@ public class Game {
     public void swap(int t1, int t2) {
         int one = t1 + 1;
         int two = t2 + 1;
-        tiles[t1].position.setPositionnumber(16);
-        tiles[t2].position.setPositionnumber(one);
-        tiles[t1].displaynumber=two;
-        tiles[t2].displaynumber=one;
-        tiles[t1].position.setFree(true);
-        tiles[t2].position.setFree(false);
+        Tile temp = new Tile();
+        temp = tiles[t1];
+        tiles[t1]=tiles[t2];
+        tiles[t2]=temp;
+//        tiles[t1].position.setPositionnumber(16);
+//        tiles[t2].position.setPositionnumber(one);
+//        tiles[t1].displaynumber=two;
+//        tiles[t2].displaynumber=one;
+//        tiles[t1].position.setFree(true);
+//        tiles[t2].position.setFree(false);
 
     }
     public void moveTile2(int tileNr, int width){
