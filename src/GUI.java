@@ -57,7 +57,7 @@ public class GUI extends JFrame {
             for(int j = 0; j < game.tiles.length; j++){
                 if(i == game.tiles[j].position.getPositionnumber()){
                     JButton button = new JButton(j+1 + "");
-                    final int temp = j+1;
+                    final int temp = i+1;
                     button.addActionListener(l -> pressButton( temp));
                     button.setPreferredSize(new Dimension(80,80));
                     if(j == 15){
@@ -76,7 +76,7 @@ public class GUI extends JFrame {
     }
 
     public void pressButton(int tileNr){
-        game.moveTile(tileNr);
+        game.moveTile2(tileNr,4);
         assignButtons();
     }
 

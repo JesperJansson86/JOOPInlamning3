@@ -83,14 +83,10 @@ public class Game {
 
     }
     public void moveTile2(int tileNr, int width){
-        try {
-            if (tiles[tileNr - 2].position.free) swap(tileNr - 1, tileNr - 2);
-            if (tiles[tileNr - width - 1].position.free) swap(tileNr - 1, tileNr - width - 1);
-            if (tiles[tileNr].position.free) swap(tileNr - 1, tileNr);
-            if (tiles[tileNr - 1 + width].position.free) swap(tileNr - 1, tileNr + width - 1);
-        }catch (IndexOutOfBoundsException e){
-            //Så här får en inte göra
-        }
+        try { if (tiles[tileNr - 2].position.free) swap(tileNr - 1, tileNr - 2);}catch (IndexOutOfBoundsException e){ /*ofarligt fel*/ }
+        try { if (tiles[tileNr - width - 1].position.free) swap(tileNr - 1, tileNr - width - 1);}catch (IndexOutOfBoundsException e){ /*ofarligt fel*/ }
+        try { if (tiles[tileNr].position.free) swap(tileNr - 1, tileNr);}catch (IndexOutOfBoundsException e){ /*ofarligt fel*/ }
+        try { if (tiles[tileNr - 1 + width].position.free) swap(tileNr - 1, tileNr + width - 1);}catch (IndexOutOfBoundsException e){ /*ofarligt fel*/ }
     }
 
 
