@@ -12,8 +12,7 @@ public class Game {
         tiles = initiatepositions();
         printMe();
         moveTile(15);
-//        Position t = new Position(2);
-//        tiles[15].setPosition(t);
+        tiles[0].position.setFree(true);
         printMe();
 
     }
@@ -67,76 +66,92 @@ public class Game {
             case 1: {
                 if (tiles[1].getPosition().free) swap(0, 1);
                 if (tiles[4].getPosition().free) swap(0, 4);
+                break;
             }
             case 2: {if (tiles[0].getPosition().free) swap(1, 0);
                 if (tiles[2].getPosition().free) swap(1, 2);
                 if (tiles[5].getPosition().free) swap(1, 5);
+                break;
             }
             case 3: {  if (tiles[1].getPosition().free) swap(2, 1);
                 if (tiles[3].getPosition().free) swap(2, 3);
                 if (tiles[6].getPosition().free) swap(2, 6);
+                break;
             }
             case 4: {if (tiles[2].getPosition().free) swap(3, 2);
                 if (tiles[7].getPosition().free) swap(3, 7);
+                break;
 
             }
             case 5: {     if (tiles[0].getPosition().free) swap(4, 0);
                          if (tiles[5].getPosition().free) swap(4, 5);
                          if (tiles[8].getPosition().free) swap(4, 8);
+                break;
             }
             case 6: {if (tiles[1].getPosition().free) swap(5, 1);
                 if (tiles[4].getPosition().free) swap(5, 4);
                 if (tiles[6].getPosition().free) swap(5, 6);
                 if (tiles[9].getPosition().free) swap(5, 9);
+                break;
             }
             case 7: {if (tiles[2].getPosition().free) swap(6, 2);
                 if (tiles[5].getPosition().free) swap(6, 5);
                 if (tiles[7].getPosition().free) swap(6, 7);
                 if (tiles[10].getPosition().free) swap(6, 10);
+                break;
             }
             case 8: {if (tiles[3].getPosition().free) swap(7, 3);
                 if (tiles[6].getPosition().free) swap(7, 6);
                 if (tiles[11].getPosition().free) swap(7, 11);
+                break;
             }
             case 9: {
                 if (tiles[4].getPosition().free) swap(8, 4);
                 if (tiles[9].getPosition().free) swap(8, 9);
                 if (tiles[12].getPosition().free) swap(8, 12);
+                break;
             }
             case 10: {if (tiles[5].getPosition().free) swap(9, 5);
                      if (tiles[8].getPosition().free) swap(9, 8);
                      if (tiles[10].getPosition().free) swap(9, 10);
                       if (tiles[13].getPosition().free) swap(9, 13);
+                break;
             }
             case 11: {if (tiles[6].getPosition().free) swap(10, 6);
                     if (tiles[9].getPosition().free) swap(10, 9);
                     if (tiles[11].getPosition().free) swap(10, 11);
                     if (tiles[14].getPosition().free) swap(10, 14);
+                break;
             }
             case 12: {if (tiles[7].getPosition().free) swap(11, 7);
                     if (tiles[10].getPosition().free) swap(11, 10);
                     if (tiles[15].getPosition().free) swap(11, 15);
+                break;
             }
             case 13: {
                 if (tiles[13].getPosition().free) swap(12, 13);
                 if (tiles[8].getPosition().free) swap(12, 8);
+                break;
 
             }
             case 14: {
                     if (tiles[14].getPosition().free) swap(13, 14);
                     if (tiles[12].getPosition().free) swap(13, 12);
                     if (tiles[9].getPosition().free) swap(13, 9);
+                break;
 
             }
             case 15: {
                 if (tiles[15].getPosition().free) swap(14, 15);
-                if (tiles[13].getPosition().free) swap(14, 13);
+               if (tiles[13].getPosition().free) swap(14, 13);
                 if (tiles[10].getPosition().free) swap(14, 10);
+                break;
 
             }
             case 16: {
                 if (tiles[11].getPosition().free) swap(15, 11);
                 if (tiles[14].getPosition().free) swap(15, 14);
+                break;
 
 
 
