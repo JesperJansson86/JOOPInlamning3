@@ -12,6 +12,7 @@ public class GUI extends JFrame {
     private JButton buttonNewGame = new JButton("New Game");
     private List<JButton> buttons = new ArrayList<>();
     private List<Image> icons = new ArrayList<Image>();
+    private Game game = new Game();
 
 
 
@@ -26,15 +27,9 @@ public class GUI extends JFrame {
 
         pMain.add(pCenter, BorderLayout.CENTER);
         pCenter.setLayout(new GridLayout(4,4));
-        for(int i = 1; i <= 16; i++){
-            JButton button = new JButton(i + "");
-            button.setPreferredSize(new Dimension(80,80));
-            buttons.add(button);
-            //tile.addActionListener(l -> moveTile());
-        }
-        for(JButton tile : buttons){
-            pCenter.add(tile);
-        }
+        pCenter.setBackground(Color.RED);
+
+        assignButtons();
         //startNewGame();
 
         pMain.add(pSouth, BorderLayout.SOUTH);
@@ -48,6 +43,39 @@ public class GUI extends JFrame {
         pack();
         setMinimumSize(this.getSize());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    public void assignButtons(){
+        pCenter.removeAll();
+        for(int i = 1; i <= 16; i++){
+            for(int j = 0; j < game.tiles.length; j++){
+                if(i == game.tiles[j].position.getPositionnumber()){
+                    JButton button = new JButton(j+1 + "");
+                    final int temp = j+1;
+                    button.addActionListener(l -> pressButton( temp));
+                    button.setPreferredSize(new Dimension(80,80));
+                    if(j == 15){
+                        button.setBackground(Color.RED);
+                        button.setVisible(false);
+                    }
+                    else{
+                        button.setBackground(Color.GREEN);
+                    }
+                    pCenter.add(button);
+                }
+            }
+        }
+        pCenter.revalidate();
+        pCenter.repaint();
+    }
+
+    public void pressButton(int tileNr){
+        game.moveTile(tileNr);
+        assignButtons();
+    }
+
+    public void startNewGame(){
+        game.startNewGame();
     }
 
     public static void main(String[] args) {
