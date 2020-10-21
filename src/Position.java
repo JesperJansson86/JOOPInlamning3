@@ -21,4 +21,7 @@ public class Position {
     public Position(int pos){
         positionnumber=pos;
     }
+    public Position(){
+
+    }
 }
