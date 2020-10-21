@@ -47,7 +47,7 @@ public class Game {
         for (int i = 0; i < tiles.length - 1; ) {
             System.out.println();
             for (int j = 0; j < 4; j++, i++) {
-                System.out.print(tiles[i].getPosition().getPositionnumber() + " ");
+                System.out.print(tiles[i].getPosition() + " ");
             }
         }
     }
@@ -59,7 +59,7 @@ public class Game {
         temp.setPosition(tiles[one].getPosition());
         tiles[one].setPosition(tiles[two].getPosition());
         tiles[two].setPosition(temp.getPosition());
-        tiles[one]
+
 
     }
 
