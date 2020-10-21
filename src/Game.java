@@ -1,4 +1,7 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 public class Game {
     Tile[] tiles = new Tile[16];
@@ -172,10 +175,77 @@ public class Game {
     }
 
     public void startNewGame(){
-        //TODO
-        //Fixa random-lista
-        //Validera lista
-        //assigna lista till Tiles
+        int[] list;
+        while(true){
+            int[] tempList = generateRandomList();
+            if(validate(tempList)) {
+                list = Arrays.copyOf(tempList, tempList.length);
+                break;
+            }
+        }
+        for(int i = 0; i < tiles.length; i++){
+            tiles[i].position.setPositionnumber(list[i]);
+        }
+    }
+
+    /*
+    If the grid width is odd, then the number of inversions in a solvable situation is even.
+
+If the grid width is even, and the blank is on an even row counting from the bottom (second-last, fourth-last etc),
+then the number of inversions in a solvable situation is odd.
+
+If the grid width is even, and the blank is on an odd row counting from the bottom (last, third-last, fifth-last etc)
+then the number of inversions in a solvable situation is even.
+
+Soure: https://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.html
+     */
+    public static boolean validate(int[] list){
+        int inversions = countInversions(list);
+        if(blankOnRowFromBottom(list) % 2 == 0 && inversions % 2 == 1) return true;
+        if(blankOnRowFromBottom(list) % 2 == 1 && inversions % 2 == 0) return true;
+        return false;
+    }
+
+    public int[] generateRandomList(){
+        Random random = new Random();
+        int temp;
+        int[] list = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        List<Integer> checkList = new ArrayList<>();
+        for(int i = 1; i <= 16; i++){
+            checkList.add(i);
+        }
+        for(int i = 0; i < list.length; i++){
+            temp = random.nextInt(checkList.size());
+            list[i] = checkList.get(temp);
+            checkList.remove(temp);
+        }
+        return list;
+    }
+
+    public static int countInversions(int[] list){
+        int inversions = 0;
+        for(int i = 0; i < list.length; i++){
+            if(list[i] == 16) continue;
+            for(int j = i; j < list.length; j++){
+                if(list[i] > list[j])
+                    inversions++;
+            }
+        }
+
+        return inversions;
+    }
+
+    public static int blankOnRowFromBottom(int[] list){
+        int result = 0;
+        for(int i = 0; i < list.length; i++){
+            if(list[i] == 16){
+                if(i > 12) result = 1;
+                else if(i > 8) result = 2;
+                else if(i > 4) result = 3;
+                else result = 4;
+            }
+        }
+        return result;
     }
 }
 
