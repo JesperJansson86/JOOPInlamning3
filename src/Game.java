@@ -6,7 +6,7 @@ import java.util.Random;
 public class Game {
     Tile[] tiles = new Tile[16];
 
-    Game(){
+    Game() {
         tiles = initiatepositions();
     }
 
@@ -17,19 +17,18 @@ public class Game {
 
     public void run() {
         tiles = initiatepositions();
-        printMe();
-        moveTile2(15,4);
-        moveTile2(14,4);
-        moveTile2(13,4);
-        moveTile2(9,4);
-        moveTile2(10,4);
-        moveTile2(10,4);
-        moveTile2(9,4);
-        moveTile2(13,4);
 
-
-        tiles[0].position.setFree(true);
+        moveTile2(15, 4);
+        moveTile2(11, 4);
+        moveTile2(10, 4);
+        moveTile2(14, 4);
+        moveTile2(11, 4);
         printMe();
+
+//        for (int i = 0; i < tiles.length; i++) {
+//            System.out.print(tiles[i].getPosition().getPositionnumber()+" ,");
+//        }
+
 
     }
 
@@ -68,144 +67,52 @@ public class Game {
     }
 
     public void swap(int t1, int t2) {
-        int one = t1 + 1;
-        int two = t2 + 1;
+
         Tile temp = new Tile();
         temp = tiles[t1];
-        tiles[t1]=tiles[t2];
-        tiles[t2]=temp;
-//        tiles[t1].position.setPositionnumber(16);
-//        tiles[t2].position.setPositionnumber(one);
-//        tiles[t1].displaynumber=two;
-//        tiles[t2].displaynumber=one;
-//        tiles[t1].position.setFree(true);
-//        tiles[t2].position.setFree(false);
+        tiles[t1] = tiles[t2];
+        tiles[t2] = temp;
 
     }
-    public void moveTile2(int tileNr, int width){
-        try { if (tiles[tileNr - 2].position.free) swap(tileNr - 1, tileNr - 2);}catch (IndexOutOfBoundsException e){ /*ofarligt fel*/ }
-        try { if (tiles[tileNr - width - 1].position.free) swap(tileNr - 1, tileNr - width - 1);}catch (IndexOutOfBoundsException e){ /*ofarligt fel*/ }
-        try { if (tiles[tileNr].position.free) swap(tileNr - 1, tileNr);}catch (IndexOutOfBoundsException e){ /*ofarligt fel*/ }
-        try { if (tiles[tileNr - 1 + width].position.free) swap(tileNr - 1, tileNr + width - 1);}catch (IndexOutOfBoundsException e){ /*ofarligt fel*/ }
+
+    public void moveTile2(int tileNr, int width) {
+        try {
+            if (tiles[tileNr - 2].position.free&&tileNr % width != 1) {
+                swap(tileNr - 1, tileNr - 2);
+                System.out.println("vänster");
+            }
+        } catch (IndexOutOfBoundsException e) { /*ofarligt fel*/ }
+        try {
+            if (tiles[tileNr - width - 1].position.free) {
+                swap(tileNr - 1, tileNr - width - 1);
+                System.out.println("ner");
+            }
+        } catch (IndexOutOfBoundsException e) { /*ofarligt fel*/ }
+        try {
+            if (tiles[tileNr].position.free&&tileNr % width != 0) {
+                swap(tileNr - 1, tileNr);
+                System.out.println("höger");
+            }
+        } catch (IndexOutOfBoundsException e) { /*ofarligt fel*/ }
+        try {
+            if (tiles[tileNr - 1 + width].position.free) {
+                swap(tileNr - 1, tileNr + width - 1);
+                System.out.println("upp");
+            }
+        } catch (IndexOutOfBoundsException e) { /*ofarligt fel*/ }
     }
 
 
-    public void moveTile(int tileNr) {
-        switch (tileNr) {
-            case 1: {
-                if (tiles[1].getPosition().free) swap(0, 1);
-                if (tiles[4].getPosition().free) swap(0, 4);
-                break;
-            }
-            case 2: {
-                if (tiles[0].getPosition().free) swap(1, 0);
-                if (tiles[2].getPosition().free) swap(1, 2);
-                if (tiles[5].getPosition().free) swap(1, 5);
-                break;
-            }
-            case 3: {
-                if (tiles[1].getPosition().free) swap(2, 1);
-                if (tiles[3].getPosition().free) swap(2, 3);
-                if (tiles[6].getPosition().free) swap(2, 6);
-                break;
-            }
-            case 4: {
-                if (tiles[2].getPosition().free) swap(3, 2);
-                if (tiles[7].getPosition().free) swap(3, 7);
-                break;
-
-            }
-            case 5: {
-                if (tiles[0].getPosition().free) swap(4, 0);
-                if (tiles[5].getPosition().free) swap(4, 5);
-                if (tiles[8].getPosition().free) swap(4, 8);
-                break;
-            }
-            case 6: {
-                if (tiles[1].getPosition().free) swap(5, 1);
-                if (tiles[4].getPosition().free) swap(5, 4);
-                if (tiles[6].getPosition().free) swap(5, 6);
-                if (tiles[9].getPosition().free) swap(5, 9);
-                break;
-            }
-            case 7: {
-                if (tiles[2].getPosition().free) swap(6, 2);
-                if (tiles[5].getPosition().free) swap(6, 5);
-                if (tiles[7].getPosition().free) swap(6, 7);
-                if (tiles[10].getPosition().free) swap(6, 10);
-                break;
-            }
-            case 8: {
-                if (tiles[3].getPosition().free) swap(7, 3);
-                if (tiles[6].getPosition().free) swap(7, 6);
-                if (tiles[11].getPosition().free) swap(7, 11);
-                break;
-            }
-            case 9: {
-                if (tiles[4].getPosition().free) swap(8, 4);
-                if (tiles[9].getPosition().free) swap(8, 9);
-                if (tiles[12].getPosition().free) swap(8, 12);
-                break;
-            }
-            case 10: {
-                if (tiles[5].getPosition().free) swap(9, 5);
-                if (tiles[8].getPosition().free) swap(9, 8);
-                if (tiles[10].getPosition().free) swap(9, 10);
-                if (tiles[13].getPosition().free) swap(9, 13);
-                break;
-            }
-            case 11: {
-                if (tiles[6].getPosition().free) swap(10, 6);
-                if (tiles[9].getPosition().free) swap(10, 9);
-                if (tiles[11].getPosition().free) swap(10, 11);
-                if (tiles[14].getPosition().free) swap(10, 14);
-                break;
-            }
-            case 12: {
-                if (tiles[7].getPosition().free) swap(11, 7);
-                if (tiles[10].getPosition().free) swap(11, 10);
-                if (tiles[15].getPosition().free) swap(11, 15);
-                break;
-            }
-            case 13: {
-                if (tiles[13].getPosition().free) swap(12, 13);
-                if (tiles[8].getPosition().free) swap(12, 8);
-                break;
-
-            }
-            case 14: {
-                if (tiles[14].getPosition().free) swap(13, 14);
-                if (tiles[12].getPosition().free) swap(13, 12);
-                if (tiles[9].getPosition().free) swap(13, 9);
-                break;
-
-            }
-            case 15: {
-                if (tiles[15].getPosition().free) swap(14, 15);
-                if (tiles[13].getPosition().free) swap(14, 13);
-                if (tiles[10].getPosition().free) swap(14, 10);
-                break;
-
-            }
-            case 16: {
-                if (tiles[11].getPosition().free) swap(15, 11);
-                if (tiles[14].getPosition().free) swap(15, 14);
-                break;
-            }
-        }
-        System.out.println("Move done.");
-    }
-
-    public void startNewGame(){
+    public void startNewGame() {
         int[] list;
-        while(true){
+        while (true) {
             int[] tempList = generateRandomList();
-            if(validate(tempList)) {
+            if (validate(tempList)) {
                 list = Arrays.copyOf(tempList, tempList.length);
                 break;
             }
         }
-        for(int i = 0; i < tiles.length; i++){
+        for (int i = 0; i < tiles.length; i++) {
             tiles[i].position.setPositionnumber(list[i]);
         }
     }
@@ -221,22 +128,22 @@ then the number of inversions in a solvable situation is even.
 
 Soure: https://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.html
      */
-    public static boolean validate(int[] list){
+    public static boolean validate(int[] list) {
         int inversions = countInversions(list);
-        if(blankOnRowFromBottom(list) % 2 == 0 && inversions % 2 == 1) return true;
-        if(blankOnRowFromBottom(list) % 2 == 1 && inversions % 2 == 0) return true;
+        if (blankOnRowFromBottom(list) % 2 == 0 && inversions % 2 == 1) return true;
+        if (blankOnRowFromBottom(list) % 2 == 1 && inversions % 2 == 0) return true;
         return false;
     }
 
-    public int[] generateRandomList(){
+    public int[] generateRandomList() {
         Random random = new Random();
         int temp;
-        int[] list = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        int[] list = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         List<Integer> checkList = new ArrayList<>();
-        for(int i = 1; i <= 16; i++){
+        for (int i = 1; i <= 16; i++) {
             checkList.add(i);
         }
-        for(int i = 0; i < list.length; i++){
+        for (int i = 0; i < list.length; i++) {
             temp = random.nextInt(checkList.size());
             list[i] = checkList.get(temp);
             checkList.remove(temp);
@@ -244,12 +151,12 @@ Soure: https://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.
         return list;
     }
 
-    public static int countInversions(int[] list){
+    public static int countInversions(int[] list) {
         int inversions = 0;
-        for(int i = 0; i < list.length; i++){
-            if(list[i] == 16) continue;
-            for(int j = i; j < list.length; j++){
-                if(list[i] > list[j])
+        for (int i = 0; i < list.length; i++) {
+            if (list[i] == 16) continue;
+            for (int j = i; j < list.length; j++) {
+                if (list[i] > list[j])
                     inversions++;
             }
         }
@@ -257,13 +164,13 @@ Soure: https://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.
         return inversions;
     }
 
-    public static int blankOnRowFromBottom(int[] list){
+    public static int blankOnRowFromBottom(int[] list) {
         int result = 0;
-        for(int i = 0; i < list.length; i++){
-            if(list[i] == 16){
-                if(i > 12) result = 1;
-                else if(i > 8) result = 2;
-                else if(i > 4) result = 3;
+        for (int i = 0; i < list.length; i++) {
+            if (list[i] == 16) {
+                if (i > 12) result = 1;
+                else if (i > 8) result = 2;
+                else if (i > 4) result = 3;
                 else result = 4;
             }
         }

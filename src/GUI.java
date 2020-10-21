@@ -4,6 +4,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GUI extends JFrame {
@@ -54,9 +55,10 @@ public class GUI extends JFrame {
     public void assignButtons(){
         pCenter.removeAll();
         for(int i = 0; i < 16; i++){
-            int number = game.tiles[i].position.getPositionnumber();
-            final int temp = number;
-            JButton button = new JButton(number + "");
+            int number = game.tiles[i].displaynumber;
+
+            final int temp = i+1;
+            JButton button = new JButton(number + "!");
             button.setPreferredSize(new Dimension(80,80));
             button.addActionListener(l -> pressButton(temp));
             if(number == 16){
@@ -72,7 +74,12 @@ public class GUI extends JFrame {
     }
 
     public void pressButton(int tileNr){
-        game.moveTile(tileNr);
+        game.moveTile2(tileNr,4);
+        game.printMe();
+        System.out.println();
+        for (int i = 0; i < game.tiles.length; i++) {
+            System.out.print(game.tiles[i].getPosition().getPositionnumber()+" ,");
+        }
         assignButtons();
     }
 
