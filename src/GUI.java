@@ -53,30 +53,26 @@ public class GUI extends JFrame {
 
     public void assignButtons(){
         pCenter.removeAll();
-        for(int i = 1; i <= 16; i++){
-            for(int j = 0; j < game.tiles.length; j++){
-                if(i == game.tiles[j].position.getPositionnumber()){
-                    JButton button = new JButton(j+1 + "");
-                    final int temp = i+1;
-                    button.addActionListener(l -> pressButton( temp));
-                    button.setPreferredSize(new Dimension(80,80));
-                    if(j == 15){
-                        button.setBackground(Color.RED);
-                        button.setVisible(false);
-                    }
-                    else{
-                        button.setBackground(blue);
-                    }
-                    pCenter.add(button);
-                }
+        for(int i = 0; i < 16; i++){
+            int number = game.tiles[i].position.getPositionnumber();
+            final int temp = number;
+            JButton button = new JButton(number + "");
+            button.setPreferredSize(new Dimension(80,80));
+            button.addActionListener(l -> pressButton(temp));
+            if(number == 16){
+                button.setVisible(false);
             }
+            else {
+                button.setBackground(blue);
+            }
+            pCenter.add(button);
         }
         pCenter.revalidate();
         pCenter.repaint();
     }
 
     public void pressButton(int tileNr){
-        game.moveTile2(tileNr,4);
+        game.moveTile(tileNr);
         assignButtons();
     }
 
