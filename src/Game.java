@@ -47,19 +47,18 @@ public class Game {
         for (int i = 0; i < tiles.length - 1; ) {
             System.out.println();
             for (int j = 0; j < 4; j++, i++) {
-                System.out.print(tiles[i].getPosition() + " ");
+                System.out.print(tiles[i].getPosition().getPositionnumber() + " ");
             }
         }
     }
 
     public void swap(int t1, int t2) {
-        int one = t1;
-        int two = t2;
-        Tile temp = new Tile();
-        temp.setPosition(tiles[one].getPosition());
-        tiles[one].setPosition(tiles[two].getPosition());
-        tiles[two].setPosition(temp.getPosition());
-
+        int one = t1+1;
+        int two = t2+1;
+        tiles[t1].position.setPositionnumber(two);
+        tiles[t2].position.setPositionnumber(one);
+        tiles[t1].position.setFree(true);
+        tiles[t2].position.setFree(false);
 
     }
 
