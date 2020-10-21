@@ -10,7 +10,7 @@ public class GUI extends JFrame {
     private JPanel pNorth = new JPanel();
     private JPanel tileGrid = new JPanel();
     private JButton buttonNewGame = new JButton("New Game");
-    private List<JButton> tiles = new ArrayList<>();
+    private List<JButton> buttons = new ArrayList<>();
     private List<Image> icons = new ArrayList<Image>();
 
 
@@ -27,12 +27,12 @@ public class GUI extends JFrame {
         pMain.add(pCenter, BorderLayout.CENTER);
         pCenter.setLayout(new GridLayout(4,4));
         for(int i = 1; i <= 16; i++){
-            JButton tile = new JButton(i + "");
-            tile.setPreferredSize(new Dimension(80,80));
-            tiles.add(tile);
+            JButton button = new JButton(i + "");
+            button.setPreferredSize(new Dimension(80,80));
+            buttons.add(button);
             //tile.addActionListener(l -> moveTile());
         }
-        for(JButton tile : tiles){
+        for(JButton tile : buttons){
             pCenter.add(tile);
         }
         //startNewGame();
