@@ -18,7 +18,12 @@ public class Game {
     public void run() {
         tiles = initiatepositions();
         printMe();
-        moveTile(15);
+        moveTile2(15,4);
+        moveTile2(14,4);
+        moveTile2(13,4);
+        moveTile2(9,4);
+        moveTile2(10,4);
+
         tiles[0].position.setFree(true);
         printMe();
 
@@ -53,7 +58,7 @@ public class Game {
         for (int i = 0; i < tiles.length - 1; ) {
             System.out.println();
             for (int j = 0; j < 4; j++, i++) {
-                System.out.print(tiles[i].getPosition().getPositionnumber() + " ");
+                System.out.print(tiles[i].position.getPositionnumber() + " ");
             }
         }
     }
@@ -61,12 +66,25 @@ public class Game {
     public void swap(int t1, int t2) {
         int one = t1 + 1;
         int two = t2 + 1;
-        tiles[t1].position.setPositionnumber(two);
+        tiles[t1].position.setPositionnumber(16);
         tiles[t2].position.setPositionnumber(one);
+        tiles[t1].displaynumber=two;
+        tiles[t2].displaynumber=one;
         tiles[t1].position.setFree(true);
         tiles[t2].position.setFree(false);
 
     }
+    public void moveTile2(int tileNr, int width){
+        try {
+            if (tiles[tileNr - 2].position.free) swap(tileNr - 1, tileNr - 2);
+            if (tiles[tileNr - width - 1].position.free) swap(tileNr - 1, tileNr - width - 1);
+            if (tiles[tileNr].position.free) swap(tileNr - 1, tileNr);
+            if (tiles[tileNr - 1 + width].position.free) swap(tileNr - 1, tileNr + width - 1);
+        }catch (IndexOutOfBoundsException e){
+            //Så här får en inte göra
+        }
+    }
+
 
     public void moveTile(int tileNr) {
         switch (tileNr) {
