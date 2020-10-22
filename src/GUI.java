@@ -19,27 +19,25 @@ public class GUI extends JFrame {
     private List<ImageIcon> icons = new ArrayList<>();
     private List<Image> iconImages = new ArrayList<>();
     private Game game = new Game();
-    private Color blue = new Color(104,147,196);
+    private Color blue = new Color(104, 147, 196);
 
-
-
-    public GUI(){
+    public GUI() {
         addLogo();
 
         setLayout(new FlowLayout());
         add(pMain);
         pMain.setLayout(new BorderLayout());
-
+        //North
         pMain.add(pNorth, BorderLayout.NORTH);
         pNorth.add(labelNorth);
-
+        //Center
         pMain.add(pCenter, BorderLayout.CENTER);
-        pCenter.setLayout(new GridLayout(4,4));
+        pCenter.setLayout(new GridLayout(4, 4));
         assignButtons();
-
+        //South
         pMain.add(pSouth, BorderLayout.SOUTH);
         pSouth.add(buttonNewGame);
-        buttonNewGame.setPreferredSize(new Dimension(320,20));
+        buttonNewGame.setPreferredSize(new Dimension(320, 20));
         buttonNewGame.addActionListener(l -> startNewGame());
 
         setTitle("15 Game");
@@ -50,19 +48,37 @@ public class GUI extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    public void assignButtons(){
+    public void startNewGame(){
+        game.startNewGame();
+        assignButtons();
+        labelNorth.setText("Arrange the tiles in numerical order");
+    }
+
+    public void pressButton(int tileNr) {
+        game.moveTile2(tileNr, 4);
+        System.out.println();
+        for (int i = 0; i < game.tiles.length; i++) {
+            System.out.print(game.tiles[i].getDisplaynumber()+" ,");
+        }
+        assignButtons();
+        if (game.checkIfSolved()) {
+            labelNorth.setText("Congratulations!");
+            return;
+        }
+        pack();
+    }
+
+    public void assignButtons() {
         pCenter.removeAll();
         for(int i = 0; i < 16; i++){
             int number = game.tiles[i].getDisplaynumber();
-
-            final int temp = i+1;
+            final int temp = i + 1;
             JButton button = new JButton(number + "!");
-            button.setPreferredSize(new Dimension(80,80));
+            button.setPreferredSize(new Dimension(80, 80));
             button.addActionListener(l -> pressButton(temp));
-            if(number == 16){
+            if (number == 16) {
                 button.setVisible(false);
-            }
-            else {
+            } else {
                 button.setBackground(blue);
             }
             pCenter.add(button);
@@ -71,40 +87,15 @@ public class GUI extends JFrame {
         pCenter.repaint();
     }
 
-    public void pressButton(int tileNr){
-        game.moveTile2(tileNr,4);
-//        game.printMe();
-        System.out.println();
-        for (int i = 0; i < game.tiles.length; i++) {
-            System.out.print(game.tiles[i].getDisplaynumber()+" ,");
-        }
-        assignButtons();
-        if(game.checkIfSolved()){
-            labelNorth.setText("Congratulations!");
-            return;
-        }
-        pack();
-    }
-
-    public void addLogo(){
+    public void addLogo() {
         try {
             iconImages.add(new ImageIcon(ImageIO.read(new File("img/logo16.png"))).getImage());
             iconImages.add(new ImageIcon(ImageIO.read(new File("img/logo32.png"))).getImage());
             iconImages.add(new ImageIcon(ImageIO.read(new File("img/logo64.png"))).getImage());
             iconImages.add(new ImageIcon(ImageIO.read(new File("img/logo128.png"))).getImage());
-        } catch (IOException e){
+        } catch (IOException e) {
             e.getStackTrace();
         }
         setIconImages(iconImages);
-    }
-
-    public void startNewGame(){
-        game.startNewGame();
-        assignButtons();
-        labelNorth.setText("Arrange the tiles in numerical order");
-    }
-
-    public static void main(String[] args){
-        GUI gui = new GUI();
     }
 }
