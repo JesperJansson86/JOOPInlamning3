@@ -6,7 +6,7 @@ import java.util.Random;
 public class Game {
     Tile[] tiles = new Tile[16];
 
-    Game() {
+    Game(){
         tiles = initiatepositions();
     }
 
@@ -17,12 +17,18 @@ public class Game {
 
     public void run() {
         tiles = initiatepositions();
+        printMe();
+        moveTile2(15,4);
+        moveTile2(14,4);
+        moveTile2(13,4);
+        moveTile2(9,4);
+        moveTile2(10,4);
+        moveTile2(10,4);
+        moveTile2(9,4);
+        moveTile2(13,4);
 
-        moveTile2(15, 4);
-        moveTile2(11, 4);
-        moveTile2(10, 4);
-        moveTile2(14, 4);
-        moveTile2(11, 4);
+
+        tiles[0].position.setFree(true);
         printMe();
 
 //        for (int i = 0; i < tiles.length; i++) {
@@ -113,19 +119,23 @@ public Tile[] initiatepositions2(List list){
     }
 
 
-    public void startNewGame() {
+    public void startNewGame(){
+        int[] list = generateValidList();
+        for(int i = 0; i < tiles.length; i++){
+            tiles[i].position.setPositionnumber(list[i]);
+        }
+    }
+
+    public int[] generateValidList(){
         int[] list;
-        while (true) {
+        while(true){
             int[] tempList = generateRandomList();
-            if (validate(tempList)) {
+            if(validate(tempList)) {
                 list = Arrays.copyOf(tempList, tempList.length);
                 break;
             }
         }
-        for (int i = 0; i < tiles.length; i++) {
-            tiles[i].position.setPositionnumber(list[i]);
-            System.out.println(list[i]);
-        }
+        return list;
     }
 
     /*
@@ -139,22 +149,22 @@ then the number of inversions in a solvable situation is even.
 
 Soure: https://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.html
      */
-    public static boolean validate(int[] list) {
+    public static boolean validate(int[] list){
         int inversions = countInversions(list);
-        if (blankOnRowFromBottom(list) % 2 == 0 && inversions % 2 == 1) return true;
-        if (blankOnRowFromBottom(list) % 2 == 1 && inversions % 2 == 0) return true;
+        if(blankOnRowFromBottom(list) % 2 == 0 && inversions % 2 == 1) return true;
+        if(blankOnRowFromBottom(list) % 2 == 1 && inversions % 2 == 0) return true;
         return false;
     }
 
-    public int[] generateRandomList() {
+    public int[] generateRandomList(){
         Random random = new Random();
         int temp;
-        int[] list = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        int[] list = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
         List<Integer> checkList = new ArrayList<>();
-        for (int i = 1; i <= 16; i++) {
+        for(int i = 0; i <= 15; i++){
             checkList.add(i);
         }
-        for (int i = 0; i < list.length; i++) {
+        for(int i = 0; i < list.length; i++){
             temp = random.nextInt(checkList.size());
             list[i] = checkList.get(temp);
             checkList.remove(temp);
@@ -162,12 +172,12 @@ Soure: https://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.
         return list;
     }
 
-    public static int countInversions(int[] list) {
+    public static int countInversions(int[] list){
         int inversions = 0;
-        for (int i = 0; i < list.length; i++) {
-            if (list[i] == 16) continue;
-            for (int j = i; j < list.length; j++) {
-                if (list[i] > list[j])
+        for(int i = 0; i < list.length; i++){
+            if(list[i] == 15) continue;
+            for(int j = i; j < list.length; j++){
+                if(list[i] > list[j])
                     inversions++;
             }
         }
@@ -175,13 +185,13 @@ Soure: https://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.
         return inversions;
     }
 
-    public static int blankOnRowFromBottom(int[] list) {
+    public static int blankOnRowFromBottom(int[] list){
         int result = 0;
-        for (int i = 0; i < list.length; i++) {
-            if (list[i] == 16) {
-                if (i > 12) result = 1;
-                else if (i > 8) result = 2;
-                else if (i > 4) result = 3;
+        for(int i = 0; i < list.length; i++){
+            if(list[i] == 15){
+                if(i > 11) result = 1;
+                else if(i > 7) result = 2;
+                else if(i > 3) result = 3;
                 else result = 4;
             }
         }
