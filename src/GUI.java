@@ -4,7 +4,6 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class GUI extends JFrame {
@@ -12,11 +11,9 @@ public class GUI extends JFrame {
     private JPanel pCenter = new JPanel();
     private JPanel pSouth = new JPanel();
     private JPanel pNorth = new JPanel();
-    private JPanel tileGrid = new JPanel();
     private JLabel labelNorth = new JLabel("Arrange the tiles in numerical order");
     private JButton buttonNewGame = new JButton("New Game");
     private List<JButton> buttons = new ArrayList<>();
-    private List<ImageIcon> icons = new ArrayList<>();
     private List<Image> iconImages = new ArrayList<>();
     private Game game = new Game();
     private Color blue = new Color(104, 147, 196);
@@ -34,7 +31,7 @@ public class GUI extends JFrame {
         pMain.add(pCenter, BorderLayout.CENTER);
         pCenter.setLayout(new GridLayout(4, 4));
         //TestCase
-        // game.moveTile2(12,4);
+        game.moveTile2(12,4);
         assignButtons();
 
         //South
@@ -47,7 +44,7 @@ public class GUI extends JFrame {
         setVisible(true);
         setLocationRelativeTo(null);
         pack();
-        setResizable(false);
+        //setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
