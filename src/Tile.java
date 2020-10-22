@@ -1,19 +1,31 @@
 public class Tile {
-    protected Position position = new Position();
-    protected int displaynumber;
-    public Tile(){
 
-    }
-    public Tile(int pos){
-        position.setPositionnumber(pos);
-        displaynumber=pos;
-    }
-    public Position getPosition() {
-        return position;
+    private int displaynumber;
+   private boolean free;
+    public int getDisplaynumber() {
+        return displaynumber;
     }
 
-
-    public void setPosition(Position position) {
-        this.position = position;
+    public void setDisplaynumber(int displaynumber) {
+        this.displaynumber = displaynumber;
     }
+
+    public boolean isFree() {
+        return free;
+    }
+
+    public void setFree(boolean free) {
+        this.free = free;
+    }
+
+
+
+    public Tile() {
+
+    }
+
+    public Tile(int displaynumber) {
+        setDisplaynumber(displaynumber);
+    }
+
 }

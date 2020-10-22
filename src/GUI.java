@@ -53,7 +53,7 @@ public class GUI extends JFrame {
     public void assignButtons(){
         pCenter.removeAll();
         for(int i = 0; i < 16; i++){
-            int number = game.tiles[i].displaynumber;
+            int number = game.tiles[i].getDisplaynumber();
 
             final int temp = i+1;
             JButton button = new JButton(number + "!");
@@ -73,10 +73,10 @@ public class GUI extends JFrame {
 
     public void pressButton(int tileNr){
         game.moveTile2(tileNr,4);
-        game.printMe();
+//        game.printMe();
         System.out.println();
         for (int i = 0; i < game.tiles.length; i++) {
-            System.out.print(game.tiles[i].displaynumber+" ,");
+            System.out.print(game.tiles[i].getDisplaynumber()+" ,");
         }
         assignButtons();
         if(game.checkIfSolved()){
