@@ -6,8 +6,8 @@ import java.util.Random;
 public class Game {
     Tile[] tiles = new Tile[16];
 
-    Game(){
-        tiles = initiatepositions();
+    Game() {
+        tiles = initiatepositions2(startlist());
     }
 
     public static void main(String[] args) {
@@ -16,69 +16,28 @@ public class Game {
     }
 
     public void run() {
-        tiles = initiatepositions2(startlist());
-        printMe();
-        moveTile2(15,4);
-        moveTile2(14,4);
-        moveTile2(13,4);
-        moveTile2(9,4);
-        moveTile2(10,4);
-        moveTile2(10,4);
-        moveTile2(9,4);
-        moveTile2(13,4);
-
-
-        tiles[0].position.setFree(true);
-        printMe();
-
-//        for (int i = 0; i < tiles.length; i++) {
-//            System.out.print(tiles[i].getPosition().getPositionnumber()+" ,");
-//        }
-
 
     }
-    public int[] startlist(){
+
+    public int[] startlist() {
         int[] arr = new int[16];
         for (int i = 0; i < 16; i++) {
-            arr[i]=i;
+            arr[i] = i;
         }
-    return arr;
+        return arr;
     }
-public Tile[] initiatepositions2(int[] intarray){
-    Tile[] newtiles = new Tile[16];
-        for (int i = 0; i < 16; i++) {
-        Tile t = new Tile(i+1);
-        int temp = intarray[i];
-        newtiles[temp]=t;
-        if (i==15) newtiles[temp].position.setFree(true);
-    }
-        return newtiles;
-}
 
-    public static Tile[] initiatepositions() {
-        Tile t1 = new Tile(1);
-        Tile t2 = new Tile(2);
-        Tile t3 = new Tile(3);
-        Tile t4 = new Tile(4);
-        Tile t5 = new Tile(5);
-        Tile t6 = new Tile(6);
-        Tile t7 = new Tile(7);
-        Tile t8 = new Tile(8);
-        Tile t9 = new Tile(9);
-        Tile t10 = new Tile(10);
-        Tile t11 = new Tile(11);
-        Tile t12 = new Tile(12);
-        Tile t13 = new Tile(13);
-        Tile t14 = new Tile(14);
-        Tile t15 = new Tile(15);
-        Tile t16 = new Tile(16);
-        t16.position.setFree(true);
-        Tile[] tileArr = new Tile[]{t1, t2, t3, t4,
-                t5, t6, t7, t8,
-                t9, t10, t11, t12,
-                t13, t14, t15, t16};
-        return tileArr;
+    public Tile[] initiatepositions2(int[] intarray) {
+        Tile[] newtiles = new Tile[16];
+        for (int i = 0; i < 16; i++) {
+            Tile t = new Tile(i + 1);
+            int temp = intarray[i];
+            newtiles[temp] = t;
+            if (i == 15) newtiles[temp].position.setFree(true);
+        }
+        return newtiles;
     }
+
 
     public void printMe() {
         for (int i = 0; i < tiles.length - 1; ) {
@@ -100,7 +59,7 @@ public Tile[] initiatepositions2(int[] intarray){
 
     public void moveTile2(int tileNr, int width) {
         try {
-            if (tiles[tileNr - 2].position.free&&tileNr % width != 1) {
+            if (tiles[tileNr - 2].position.free && tileNr % width != 1) {
                 swap(tileNr - 1, tileNr - 2);
                 System.out.println("vänster");
             }
@@ -112,7 +71,7 @@ public Tile[] initiatepositions2(int[] intarray){
             }
         } catch (IndexOutOfBoundsException e) { /*ofarligt fel*/ }
         try {
-            if (tiles[tileNr].position.free&&tileNr % width != 0) {
+            if (tiles[tileNr].position.free && tileNr % width != 0) {
                 swap(tileNr - 1, tileNr);
                 System.out.println("höger");
             }
