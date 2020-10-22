@@ -13,6 +13,7 @@ public class GUI extends JFrame {
     private JPanel pSouth = new JPanel();
     private JPanel pNorth = new JPanel();
     private JPanel tileGrid = new JPanel();
+    private JLabel labelNorth = new JLabel("Arrange the tiles in numerical order");
     private JButton buttonNewGame = new JButton("New Game");
     private List<JButton> buttons = new ArrayList<>();
     private List<ImageIcon> icons = new ArrayList<>();
@@ -30,13 +31,10 @@ public class GUI extends JFrame {
         pMain.setLayout(new BorderLayout());
 
         pMain.add(pNorth, BorderLayout.NORTH);
-        pNorth.add(new JLabel("Arrange the tiles in numerical order"));
+        pNorth.add(labelNorth);
 
         pMain.add(pCenter, BorderLayout.CENTER);
         pCenter.setLayout(new GridLayout(4,4));
-//        pCenter.setBackground(Color.RED);
-
-//        startNewGame();
         assignButtons();
 
         pMain.add(pSouth, BorderLayout.SOUTH);
@@ -81,6 +79,11 @@ public class GUI extends JFrame {
             System.out.print(game.tiles[i].displaynumber+" ,");
         }
         assignButtons();
+        if(game.checkIfSolved()){
+            labelNorth.setText("Congratulations!");
+            return;
+        }
+        pack();
     }
 
     public void addLogo(){
@@ -98,6 +101,7 @@ public class GUI extends JFrame {
     public void startNewGame(){
         game.startNewGame();
         assignButtons();
+        labelNorth.setText("Arrange the tiles in numerical order");
     }
 
     public static void main(String[] args){
