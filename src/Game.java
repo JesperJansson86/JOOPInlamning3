@@ -30,7 +30,6 @@ public class Game {
 
         tiles[0].position.setFree(true);
         printMe();
-
     }
 
     public static Tile[] initiatepositions() {
@@ -201,6 +200,13 @@ public class Game {
     }
 
     public void startNewGame(){
+        int[] list = generateValidList();
+        for(int i = 0; i < tiles.length; i++){
+            tiles[i].position.setPositionnumber(list[i]);
+        }
+    }
+
+    public int[] generateValidList(){
         int[] list;
         while(true){
             int[] tempList = generateRandomList();
@@ -209,9 +215,7 @@ public class Game {
                 break;
             }
         }
-        for(int i = 0; i < tiles.length; i++){
-            tiles[i].position.setPositionnumber(list[i]);
-        }
+        return list;
     }
 
     /*
@@ -237,7 +241,7 @@ Soure: https://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.
         int temp;
         int[] list = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
         List<Integer> checkList = new ArrayList<>();
-        for(int i = 1; i <= 16; i++){
+        for(int i = 0; i <= 15; i++){
             checkList.add(i);
         }
         for(int i = 0; i < list.length; i++){
@@ -251,7 +255,7 @@ Soure: https://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.
     public static int countInversions(int[] list){
         int inversions = 0;
         for(int i = 0; i < list.length; i++){
-            if(list[i] == 16) continue;
+            if(list[i] == 15) continue;
             for(int j = i; j < list.length; j++){
                 if(list[i] > list[j])
                     inversions++;
@@ -264,10 +268,10 @@ Soure: https://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.
     public static int blankOnRowFromBottom(int[] list){
         int result = 0;
         for(int i = 0; i < list.length; i++){
-            if(list[i] == 16){
-                if(i > 12) result = 1;
-                else if(i > 8) result = 2;
-                else if(i > 4) result = 3;
+            if(list[i] == 15){
+                if(i > 11) result = 1;
+                else if(i > 7) result = 2;
+                else if(i > 3) result = 3;
                 else result = 4;
             }
         }
