@@ -12,11 +12,17 @@ public class Game {
         tiles = initiateStartingPositions(createStartingPositionsArray());
     }
 
+    public void setWidth(int width){
+        this.width = width;
+        totalTiles = width * width;
+        tiles = initiateStartingPositions(createStartingPositionsArray());
+    }
+
     public static void main(String[] args) {
 
     }
 
-    public int[] createStartingPositionsArray() {
+    private int[] createStartingPositionsArray() {
         int[] arr = new int[totalTiles];
         for (int i = 0; i < totalTiles; i++) {
             arr[i] = i;
@@ -24,7 +30,7 @@ public class Game {
         return arr;
     }
 
-    public Tile[] initiateStartingPositions(int[] intarray) {
+    private Tile[] initiateStartingPositions(int[] intarray) {
         Tile[] newtiles = new Tile[totalTiles];
         for (int i = 0; i < totalTiles; i++) {
             Tile t = new Tile(i + 1);
@@ -36,7 +42,7 @@ public class Game {
     }
 
 
-    public void swapTiles(int t1, int t2) {
+    private void swapTiles(int t1, int t2) {
 
         Tile temp = new Tile();
         temp = tiles[t1];
@@ -83,7 +89,7 @@ public class Game {
     }
 
 
-    public int[] generateValidList() {
+    private int[] generateValidList() {
         int[] intArray;
         while (true) {
             int[] tempList = generateRandomList();
@@ -106,14 +112,19 @@ then the number of inversions in a solvable situation is even.
 
 Soure: https://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.html
      */
-    public static boolean validate(int[] intArr) {
+    private boolean validate(int[] intArr) {
         int inversions = countInversions(intArr);
-        if (blankOnRowFromBottom(intArr) % 2 == 0 && inversions % 2 == 1) return true;
-        if (blankOnRowFromBottom(intArr) % 2 == 1 && inversions % 2 == 0) return true;
+        if (width % 2 == 0) {
+            if (blankOnRowFromBottom(intArr) % 2 == 0 && inversions % 2 == 1) return true;
+            if (blankOnRowFromBottom(intArr) % 2 == 1 && inversions % 2 == 0) return true;
+        } else {
+            if(inversions % 2 == 0) return true;
+        }
+
         return false;
     }
 
-    public int[] generateRandomList() {
+    private int[] generateRandomList() {
         Random random = new Random();
         int temp;
         int[] array = new int[totalTiles];
@@ -129,10 +140,10 @@ Soure: https://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.
         return array;
     }
 
-    public static int countInversions(int[] list) {
+    private int countInversions(int[] list) {
         int inversions = 0;
         for (int i = 0; i < list.length; i++) {
-            if (list[i] == 15) continue;
+            if (list[i] == totalTiles - 1) continue;
             for (int j = i; j < list.length; j++) {
                 if (list[i] > list[j])
                     inversions++;
@@ -142,14 +153,11 @@ Soure: https://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.
         return inversions;
     }
 
-    public static int blankOnRowFromBottom(int[] list) {
+    private int blankOnRowFromBottom(int[] list) {
         int result = 0;
         for (int i = 0; i < list.length; i++) {
-            if (list[i] == 15) {
-                if (i > 11) result = 1;
-                else if (i > 7) result = 2;
-                else if (i > 3) result = 3;
-                else result = 4;
+            if (list[i] == totalTiles-1) {
+                result = (((totalTiles -1 ) - i) / width) + 1;
             }
         }
         return result;

@@ -33,21 +33,22 @@ public class GUI extends JFrame {
         //Center
         pMain.add(pCenter, BorderLayout.CENTER);
         pCenter.setLayout(new GridLayout(4, 4));
+        sliderMoved();
         //TestCase
-        // game.moveTile2(12,4);
+         game.moveTile2(game.totalTiles - 1);
         assignButtons();
 
         //South
         pMain.add(pSouth, BorderLayout.SOUTH);
         pSouth.add(buttonNewGame);
-        buttonNewGame.setPreferredSize(new Dimension(320, 20));
         buttonNewGame.addActionListener(l -> startNewGame());
 
         setTitle("15 Game");
         setVisible(true);
         setLocationRelativeTo(null);
         pack();
-        setResizable(false);
+        buttonNewGame.setPreferredSize(new Dimension(this.getWidth(), 20));
+        //setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
@@ -69,15 +70,21 @@ public class GUI extends JFrame {
         pack();
     }
 
+    public void sliderMoved(){
+        game.setWidth(5);
+        pCenter.removeAll();
+        pCenter.setLayout(new GridLayout(game.width, game.width));
+    }
+
     public void assignButtons() {
         pCenter.removeAll();
-        for(int i = 0; i < 16; i++){
+        for(int i = 0; i < game.totalTiles; i++){
             int number = game.tiles[i].getDisplaynumber();
             final int temp = i + 1;
             JButton button = new JButton(number + "!");
             button.setPreferredSize(new Dimension(80, 80));
             button.addActionListener(l -> pressButton(temp));
-            if (number == 16) {
+            if (number == game.totalTiles) {
                 button.setVisible(false);
             } else {
                 button.setBackground(blue);
