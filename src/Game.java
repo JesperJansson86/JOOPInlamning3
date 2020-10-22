@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Random;
 
 public class Game {
-    Tile[] tiles = new Tile[16];
+    int width =4;
+    int totalTiles = width*width;
+    Tile[] tiles = new Tile[totalTiles];
 
     Game() {
         tiles = initiateStartingPositions(createStartingPositionsArray());
@@ -15,20 +17,20 @@ public class Game {
     }
 
     public int[] createStartingPositionsArray() {
-        int[] arr = new int[16];
-        for (int i = 0; i < 16; i++) {
+        int[] arr = new int[totalTiles];
+        for (int i = 0; i < totalTiles; i++) {
             arr[i] = i;
         }
         return arr;
     }
 
     public Tile[] initiateStartingPositions(int[] intarray) {
-        Tile[] newtiles = new Tile[16];
-        for (int i = 0; i < 16; i++) {
+        Tile[] newtiles = new Tile[totalTiles];
+        for (int i = 0; i < totalTiles; i++) {
             Tile t = new Tile(i + 1);
             int temp = intarray[i];
             newtiles[temp] = t;
-            if (i == 15) newtiles[temp].setFree(true);
+            if (i == totalTiles-1) newtiles[temp].setFree(true);
         }
         return newtiles;
     }
@@ -43,7 +45,7 @@ public class Game {
 
     }
 
-    public void moveTile2(int tileNr, int width) {
+    public void moveTile2(int tileNr) {
         try {
             if (tiles[tileNr - 2].isFree() && tileNr % width != 1) {
                 swapTiles(tileNr - 1, tileNr - 2);
@@ -67,7 +69,7 @@ public class Game {
     }
 
     public boolean checkIfSolved() {
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < totalTiles; i++) {
             if (this.tiles[i].getDisplaynumber() != i + 1) {
                 return false;
             }
@@ -114,17 +116,17 @@ Soure: https://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.
     public int[] generateRandomList() {
         Random random = new Random();
         int temp;
-        int[] list = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        int[] array = new int[totalTiles];
         List<Integer> checkList = new ArrayList<>();
-        for (int i = 0; i <= 15; i++) {
+        for (int i = 0; i <= totalTiles-1; i++) {
             checkList.add(i);
         }
-        for (int i = 0; i < list.length; i++) {
+        for (int i = 0; i < array.length; i++) {
             temp = random.nextInt(checkList.size());
-            list[i] = checkList.get(temp);
+            array[i] = checkList.get(temp);
             checkList.remove(temp);
         }
-        return list;
+        return array;
     }
 
     public static int countInversions(int[] list) {

@@ -58,7 +58,7 @@ public class GUI extends JFrame {
     }
 
     public void pressButton(int tileNr) {
-        game.moveTile2(tileNr, 4);
+        game.moveTile2(tileNr);
         for (int i = 0; i < game.tiles.length; i++) {
         }
         assignButtons();
