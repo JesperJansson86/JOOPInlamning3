@@ -118,6 +118,14 @@ public Tile[] initiatepositions2(List list){
         } catch (IndexOutOfBoundsException e) { /*ofarligt fel*/ }
     }
 
+    public boolean checkIfSolved(){
+        for (int i = 0; i < 16; i++) {
+            if(this.tiles[i].displaynumber != i+1){
+                return false;
+            }
+        }
+        return true;
+    }
 
     public void startNewGame(){
         int[] list = generateValidList();
@@ -127,15 +135,15 @@ public Tile[] initiatepositions2(List list){
     }
 
     public int[] generateValidList(){
-        int[] list;
+        int[] intArray;
         while(true){
             int[] tempList = generateRandomList();
             if(validate(tempList)) {
-                list = Arrays.copyOf(tempList, tempList.length);
+                intArray = Arrays.copyOf(tempList, tempList.length);
                 break;
             }
         }
-        return list;
+        return intArray;
     }
 
     /*
@@ -149,10 +157,10 @@ then the number of inversions in a solvable situation is even.
 
 Soure: https://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.html
      */
-    public static boolean validate(int[] list){
-        int inversions = countInversions(list);
-        if(blankOnRowFromBottom(list) % 2 == 0 && inversions % 2 == 1) return true;
-        if(blankOnRowFromBottom(list) % 2 == 1 && inversions % 2 == 0) return true;
+    public static boolean validate(int[] intArr){
+        int inversions = countInversions(intArr);
+        if(blankOnRowFromBottom(intArr) % 2 == 0 && inversions % 2 == 1) return true;
+        if(blankOnRowFromBottom(intArr) % 2 == 1 && inversions % 2 == 0) return true;
         return false;
     }
 
