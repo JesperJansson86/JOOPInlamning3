@@ -31,6 +31,16 @@ public class Game {
 
 
     }
+public Tile[] initiatepositions2(List list){
+    Tile[] newtiles = new Tile[16];
+        for (int i = 1; i <= 16; i++) {
+        Tile t = new Tile(i);
+        int temp = (int)list.get(i);
+        newtiles[temp]=t;
+        if (i==16) newtiles[temp].position.setFree(true);
+    }
+        return newtiles;
+}
 
     public static Tile[] initiatepositions() {
         Tile t1 = new Tile(1);
@@ -114,6 +124,7 @@ public class Game {
         }
         for (int i = 0; i < tiles.length; i++) {
             tiles[i].position.setPositionnumber(list[i]);
+            System.out.println(list[i]);
         }
     }
 

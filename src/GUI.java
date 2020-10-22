@@ -78,7 +78,7 @@ public class GUI extends JFrame {
         game.printMe();
         System.out.println();
         for (int i = 0; i < game.tiles.length; i++) {
-            System.out.print(game.tiles[i].getPosition().getPositionnumber()+" ,");
+            System.out.print(game.tiles[i].displaynumber+" ,");
         }
         assignButtons();
     }
