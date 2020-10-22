@@ -16,7 +16,7 @@ public class Game {
     }
 
     public void run() {
-        tiles = initiatepositions();
+        tiles = initiatepositions2(startlist());
         printMe();
         moveTile2(15,4);
         moveTile2(14,4);
@@ -37,13 +37,20 @@ public class Game {
 
 
     }
-public Tile[] initiatepositions2(List list){
+    public int[] startlist(){
+        int[] arr = new int[16];
+        for (int i = 0; i < 16; i++) {
+            arr[i]=i;
+        }
+    return arr;
+    }
+public Tile[] initiatepositions2(int[] intarray){
     Tile[] newtiles = new Tile[16];
-        for (int i = 1; i <= 16; i++) {
-        Tile t = new Tile(i);
-        int temp = (int)list.get(i);
+        for (int i = 0; i < 16; i++) {
+        Tile t = new Tile(i+1);
+        int temp = intarray[i];
         newtiles[temp]=t;
-        if (i==16) newtiles[temp].position.setFree(true);
+        if (i==15) newtiles[temp].position.setFree(true);
     }
         return newtiles;
 }
@@ -121,10 +128,9 @@ public Tile[] initiatepositions2(List list){
 
     public void startNewGame(){
         int[] list = generateValidList();
-        for(int i = 0; i < tiles.length; i++){
-            tiles[i].position.setPositionnumber(list[i]);
+        tiles =initiatepositions2(list);
         }
-    }
+
 
     public int[] generateValidList(){
         int[] list;
