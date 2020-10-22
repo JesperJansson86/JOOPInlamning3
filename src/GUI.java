@@ -56,10 +56,9 @@ public class GUI extends JFrame {
         //West
         pMain.add(pWest, BorderLayout.WEST);
 
-
-
         //Center
         pMain.add(pCenter, BorderLayout.CENTER);
+        pCenter.add(new JLabel("Grid Width:"));
         fixSlider();
         pCenter.add(slider);
         pCenter.add(buttonNewGame);
