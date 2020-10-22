@@ -47,6 +47,8 @@ public class GUI extends JFrame {
         //South
         pMain.add(pSouth, BorderLayout.SOUTH);
         pSouth.setLayout(new GridLayout(4, 4));
+
+        //Testcase
         if(test) {
             sliderMoved(testWidth);
             game.moveTile2(game.totalTiles - 1);
@@ -67,12 +69,9 @@ public class GUI extends JFrame {
         setTitle("15 Game");
         setVisible(true);
         setLocation(0,0);
-        //setLocationRelativeTo(null);
         pack();
-        //this.setPreferredSize(new Dimension(1200,1200));
-        //this.setMinimumSize(new Dimension(700,1100));
         buttonNewGame.setPreferredSize(new Dimension(120, 20));
-        //setResizable(false);
+        setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
@@ -98,7 +97,6 @@ public class GUI extends JFrame {
         pSouth.removeAll();
         pSouth.setLayout(new GridLayout(game.width, game.width));
         assignButtons();
-       // this.pack();
     }
 
     public void assignButtons() {
