@@ -33,7 +33,10 @@ public class GUI extends JFrame {
         //Center
         pMain.add(pCenter, BorderLayout.CENTER);
         pCenter.setLayout(new GridLayout(4, 4));
+        //TestCase
+        // game.moveTile2(12,4);
         assignButtons();
+
         //South
         pMain.add(pSouth, BorderLayout.SOUTH);
         pSouth.add(buttonNewGame);
@@ -78,6 +81,9 @@ public class GUI extends JFrame {
                 button.setVisible(false);
             } else {
                 button.setBackground(blue);
+            }
+            if(game.checkIfSolved()) {
+                button.setEnabled(false);
             }
             pCenter.add(button);
         }
