@@ -1,7 +1,8 @@
 public class Tile {
 
     private int displaynumber;
-   private boolean free;
+    private boolean free;
+
     public int getDisplaynumber() {
         return displaynumber;
     }
@@ -17,7 +18,6 @@ public class Tile {
     public void setFree(boolean free) {
         this.free = free;
     }
-
 
 
     public Tile() {

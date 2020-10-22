@@ -47,25 +47,21 @@ public class Game {
         try {
             if (tiles[tileNr - 2].isFree() && tileNr % width != 1) {
                 swapTiles(tileNr - 1, tileNr - 2);
-                System.out.println("vänster");
             }
         } catch (IndexOutOfBoundsException e) { /*ofarligt fel*/ }
         try {
             if (tiles[tileNr - width - 1].isFree()) {
                 swapTiles(tileNr - 1, tileNr - width - 1);
-                System.out.println("ner");
             }
         } catch (IndexOutOfBoundsException e) { /*ofarligt fel*/ }
         try {
             if (tiles[tileNr].isFree() && tileNr % width != 0) {
                 swapTiles(tileNr - 1, tileNr);
-                System.out.println("höger");
             }
         } catch (IndexOutOfBoundsException e) { /*ofarligt fel*/ }
         try {
             if (tiles[tileNr - 1 + width].isFree()) {
                 swapTiles(tileNr - 1, tileNr + width - 1);
-                System.out.println("upp");
             }
         } catch (IndexOutOfBoundsException e) { /*ofarligt fel*/ }
     }
