@@ -4,22 +4,18 @@ import java.util.List;
 import java.util.Random;
 
 public class Game {
-    int width =4;
-    int totalTiles = width*width;
+    int width = 4;
+    int totalTiles = width * width;
     Tile[] tiles = new Tile[totalTiles];
 
     Game() {
         tiles = initiateStartingPositions(createStartingPositionsArray());
     }
 
-    public void setWidth(int width){
+    public void setWidth(int width) {
         this.width = width;
         totalTiles = width * width;
         tiles = initiateStartingPositions(createStartingPositionsArray());
-    }
-
-    public static void main(String[] args) {
-
     }
 
     private int[] createStartingPositionsArray() {
@@ -36,7 +32,7 @@ public class Game {
             Tile t = new Tile(i + 1);
             int temp = intarray[i];
             newtiles[temp] = t;
-            if (i == totalTiles-1) newtiles[temp].setFree(true);
+            if (i == totalTiles - 1) newtiles[temp].setFree(true);
         }
         return newtiles;
     }
@@ -90,15 +86,12 @@ public class Game {
 
 
     private int[] generateValidList() {
-        int[] intArray;
         while (true) {
             int[] tempList = generateRandomList();
             if (validate(tempList)) {
-                intArray = Arrays.copyOf(tempList, tempList.length);
-                break;
+                return tempList;
             }
         }
-        return intArray;
     }
 
     /*
@@ -110,7 +103,7 @@ then the number of inversions in a solvable situation is odd.
 If the grid width is even, and the blank is on an odd row counting from the bottom (last, third-last, fifth-last etc)
 then the number of inversions in a solvable situation is even.
 
-Soure: https://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.html
+Source: https://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.html
      */
     private boolean validate(int[] intArr) {
         int inversions = countInversions(intArr);
@@ -118,7 +111,7 @@ Soure: https://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.
             if (blankOnRowFromBottom(intArr) % 2 == 0 && inversions % 2 == 1) return true;
             if (blankOnRowFromBottom(intArr) % 2 == 1 && inversions % 2 == 0) return true;
         } else {
-            if(inversions % 2 == 0) return true;
+            if (inversions % 2 == 0) return true;
         }
 
         return false;
@@ -129,7 +122,7 @@ Soure: https://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.
         int temp;
         int[] array = new int[totalTiles];
         List<Integer> checkList = new ArrayList<>();
-        for (int i = 0; i <= totalTiles-1; i++) {
+        for (int i = 0; i <= totalTiles - 1; i++) {
             checkList.add(i);
         }
         for (int i = 0; i < array.length; i++) {
@@ -156,8 +149,8 @@ Soure: https://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.
     private int blankOnRowFromBottom(int[] list) {
         int result = 0;
         for (int i = 0; i < list.length; i++) {
-            if (list[i] == totalTiles-1) {
-                result = (((totalTiles -1 ) - i) / width) + 1;
+            if (list[i] == totalTiles - 1) {
+                result = (((totalTiles - 1) - i) / width) + 1;
             }
         }
         return result;
